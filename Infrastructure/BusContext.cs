@@ -8,7 +8,7 @@ namespace Infrastructure
     {
         public DbSet<BusMemento> Buses { get; set; }
         public DbSet<BusRouteMemento> BusRoutes { get; set; }
-
+        public DbSet<ScheduledServiceMemento> Services { get; set; }
 
         public BusContext()
         { }

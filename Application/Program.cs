@@ -15,9 +15,9 @@ namespace Application
             Console.WriteLine("Let's just pretend this is a great UI, ok?");
             Console.WriteLine(@"
 Commands are:
-[Add Bus, Number, standing, seating]: AB nnn nnn nnn
-[Add Route: name]: AR xyz
-[Schedule Bus: number name]: SB nnn xyz
+[Add Bus, Number, standing, seating]: AB xyz nnn nnn
+[Add Route: name]: AR nnn
+[Schedule Bus: number name]: SB xyz nnn
 ");
 
             var options = new DbContextOptionsBuilder<BusContext>()
@@ -42,9 +42,9 @@ Commands are:
                         case "AR":
                             AddRoute(db, opt[1]);
                             break;
-                        //case "SB":
-                        //    ScheduleBus(db, opt[1], opt[2]);
-                        //    break;
+                        case "SB":
+                            ScheduleBus(db, opt[1], opt[2]);
+                            break;
                         default:
                             Console.WriteLine("Huh?");
                             break;
@@ -62,10 +62,9 @@ Commands are:
                     Console.WriteLine($"Route {r.Name}");
 
                 Console.WriteLine("--- YOUR BUS SCHEDULE ---");
-                //var schedule = GetSchedule();
-                //foreach (var t in schedule.trips)
-                //    Console.WriteLine($"Trip: Bus {t.BusNumber} on Route {t.RouteName}");
-
+                var schedule = GetSchedule(db);
+                foreach (var s in schedule)
+                    Console.WriteLine($"Trip: Bus {s.BusNumber} on Route {s.RouteNumber} is {(s.IsActive ? "active" : "inactive")} ");
 
             }
             Console.ReadLine();
@@ -80,7 +79,7 @@ Commands are:
             var b = new Bus(id, number, seatingCapacity, standingCapacity);
 
             db.Add(b.State);
-            db.SaveChangesAsync();
+            db.SaveChanges();
         }
 
         public static IEnumerable<Bus> GetBuses(BusContext db)
@@ -97,7 +96,7 @@ Commands are:
             var r = new BusRoute(id, name);
 
             db.Add(r.State);
-            db.SaveChangesAsync();
+            db.SaveChanges();
         }
 
         public static IEnumerable<BusRoute> GetRoutes(BusContext db)
@@ -107,5 +106,43 @@ Commands are:
 
             return queryResult.AsEnumerable();
         }
+
+        public static void ScheduleBus(BusContext db, string busNumber, string routeName)
+        {
+            //pretend this is in a repository
+            var bus = Bus.Factory.FromMemento(db.Buses.Single(b => b.BusNumber == busNumber));
+            var route = BusRoute.Factory.FromMemento(db.BusRoutes.Single(r => r.Id == int.Parse(routeName)));
+
+            var schedule = new ScheduledService(new ScheduledServiceId(Guid.NewGuid()), bus.Id, route.Id);
+
+            if (busNumber.StartsWith("A"))
+                schedule.Activate();
+
+            db.Services.Add(schedule.State);
+            db.SaveChanges();
+        }
+
+        public static IEnumerable<ScheduleDto> GetSchedule(BusContext db)
+        {
+            var queryResult = from s in db.Services
+                              join b in db.Buses on s.BusId equals b.Id
+                              join r in db.BusRoutes on s.RouteId equals r.Id
+                              select new ScheduleDto
+                              {
+                                  RouteNumber = r.Id,
+                                  BusNumber = b.BusNumber,
+                                  IsActive = s.IsActive
+                              };
+
+            return queryResult.AsEnumerable();
+        }
+
+        public class ScheduleDto
+        {
+            public int RouteNumber { get; set; }
+            public string BusNumber { get; set; }
+            public bool IsActive { get; set; }
+        }
+
     }
 }
