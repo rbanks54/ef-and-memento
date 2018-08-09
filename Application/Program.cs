@@ -39,9 +39,9 @@ Commands are:
                         case "AB":
                             AddBus(db, opt[1], opt[2], opt[3]);
                             break;
-                        //case "AR":
-                        //    AddRoute(db, opt[1]);
-                        //    break;
+                        case "AR":
+                            AddRoute(db, opt[1]);
+                            break;
                         //case "SB":
                         //    ScheduleBus(db, opt[1], opt[2]);
                         //    break;
@@ -51,13 +51,20 @@ Commands are:
                     }
                 }
 
+                Console.WriteLine("--- Buses and Routes ---");
+
+                var buses = GetBuses(db);
+                foreach (var b in buses)
+                    Console.WriteLine($"Bus {b.BusNumber} can seat {b.SeatedCapacity} and stand {b.StandingCapacity}");
+
+                var routes = GetRoutes(db);
+                foreach (var r in routes)
+                    Console.WriteLine($"Route {r.Name}");
+
                 Console.WriteLine("--- YOUR BUS SCHEDULE ---");
                 //var schedule = GetSchedule();
                 //foreach (var t in schedule.trips)
                 //    Console.WriteLine($"Trip: Bus {t.BusNumber} on Route {t.RouteName}");
-                var buses = GetBuses(db);
-                foreach (var b in buses)
-                    Console.WriteLine($"Bus {b.BusNumber} can seat {b.SeatedCapacity} and stand {b.StandingCapacity}");
 
 
             }
@@ -80,6 +87,23 @@ Commands are:
         {
             var queryResult = from b in db.Buses
                               select Bus.Factory.FromMemento(b);
+
+            return queryResult.AsEnumerable();
+        }
+
+        public static void AddRoute(BusContext db, string name)
+        {
+            var id = new BusRouteId(int.Parse(name));
+            var r = new BusRoute(id, name);
+
+            db.Add(r.State);
+            db.SaveChangesAsync();
+        }
+
+        public static IEnumerable<BusRoute> GetRoutes(BusContext db)
+        {
+            var queryResult = from r in db.BusRoutes
+                              select BusRoute.Factory.FromMemento(r);
 
             return queryResult.AsEnumerable();
         }
