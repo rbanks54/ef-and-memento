@@ -9,10 +9,11 @@ namespace Infrastructure
         public DbSet<BusMemento> Buses { get; set; }
         public DbSet<BusRouteMemento> BusRoutes { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder opt)
-        {
-            opt.UseInMemoryDatabase("InMemoryDb");
-        }
+
+        public BusContext()
+        { }
+
+        public BusContext(DbContextOptions<BusContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

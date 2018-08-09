@@ -8,10 +8,10 @@ namespace Domain.Mementos
     //I wish C# 8.0 record types were already available...
     public sealed class BusMemento : EntityMemento
     {
-        public Guid Id { get; }
-        public string BusNumber { get; }
-        public int SeatedCapacity { get; }
-        public int StandingCapacity { get; }
+        public Guid Id { get; private set; }
+        public string BusNumber { get; private set; }
+        public int SeatedCapacity { get; private set; }
+        public int StandingCapacity { get; private set; }
 
         public BusMemento(Guid id, string busNumber, int seatedCapacity, int standingCapacity)
         {
