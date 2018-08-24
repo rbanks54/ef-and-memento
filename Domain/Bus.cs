@@ -25,20 +25,17 @@ namespace Domain
             StandingCapacity = standing;
         }
 
-        public BusMemento State => new BusMemento(Id.Id,BusNumber,SeatedCapacity, StandingCapacity);
+        public BusMemento State => new BusMemento(Id.Id, BusNumber, SeatedCapacity, StandingCapacity);
 
-        public class Factory
+        public static Bus FromMemento(BusMemento memento)
         {
-            public static Bus FromMemento(BusMemento memento)
-            {
-                var entity = new Bus(
-                        new BusId(memento.Id),
-                        memento.BusNumber,
-                        memento.SeatedCapacity,
-                        memento.StandingCapacity
-                    );
-                return entity;
-            }
+            var entity = new Bus(
+                    new BusId(memento.Id),
+                    memento.BusNumber,
+                    memento.SeatedCapacity,
+                    memento.StandingCapacity
+                );
+            return entity;
         }
     }
 

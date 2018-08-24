@@ -17,16 +17,13 @@ namespace Domain
 
         public BusRouteMemento State => new BusRouteMemento(Id.Id);
 
-        public class Factory
+        public static BusRoute FromMemento(BusRouteMemento memento)
         {
-            public static BusRoute FromMemento(BusRouteMemento memento)
-            {
-                var entity = new BusRoute(
-                        new BusRouteId(memento.Id),
-                        memento.Id.ToString()
-                    );
-                return entity;
-            }
+            var entity = new BusRoute(
+                    new BusRouteId(memento.Id),
+                    memento.Id.ToString()
+                );
+            return entity;
         }
 
     }

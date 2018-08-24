@@ -8,7 +8,7 @@ namespace Domain.Mementos
     public sealed class BusRouteMemento : EntityMemento
     {
         public int Id { get; private set;  }
-        public BusRouteMemento(int id)
+        internal BusRouteMemento(int id)
         {
             Id = id;
         }

@@ -31,18 +31,15 @@ namespace Domain
 
         public ScheduledServiceMemento State => new ScheduledServiceMemento(Id.Id, BusId.Id, RouteId.Id, IsActive);
 
-        public class Factory
+        public static ScheduledService FromMemento(ScheduledServiceMemento memento)
         {
-            public static ScheduledService FromMemento(ScheduledServiceMemento memento)
+            var entity = new ScheduledService(new ScheduledServiceId(memento.Id),
+                new BusId(memento.BusId),
+                new BusRouteId(memento.RouteId))
             {
-                var entity = new ScheduledService(new ScheduledServiceId(memento.Id),
-                    new BusId(memento.BusId),
-                    new BusRouteId(memento.RouteId))
-                {
-                    IsActive = memento.IsActive
-                };
-                return entity;
-            }
+                IsActive = memento.IsActive
+            };
+            return entity;
         }
     }
 

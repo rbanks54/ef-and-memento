@@ -13,7 +13,7 @@ namespace Domain.Mementos
         public int SeatedCapacity { get; private set; }
         public int StandingCapacity { get; private set; }
 
-        public BusMemento(Guid id, string busNumber, int seatedCapacity, int standingCapacity)
+        internal BusMemento(Guid id, string busNumber, int seatedCapacity, int standingCapacity)
         {
             Id = id;
             BusNumber = busNumber;

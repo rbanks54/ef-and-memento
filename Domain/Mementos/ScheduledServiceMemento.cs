@@ -10,7 +10,7 @@ namespace Domain.Mementos
         public int RouteId { get; private set; }
         public bool IsActive { get; private set; }
 
-        public ScheduledServiceMemento(Guid id, Guid busId, int routeId, bool isActive)
+        internal ScheduledServiceMemento(Guid id, Guid busId, int routeId, bool isActive)
         {
             Id = id;
             BusId = busId;

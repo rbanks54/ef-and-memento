@@ -85,7 +85,7 @@ Commands are:
         public static IEnumerable<Bus> GetBuses(BusContext db)
         {
             var queryResult = from b in db.Buses
-                              select Bus.Factory.FromMemento(b);
+                              select Bus.FromMemento(b);
 
             return queryResult.AsEnumerable();
         }
@@ -102,7 +102,7 @@ Commands are:
         public static IEnumerable<BusRoute> GetRoutes(BusContext db)
         {
             var queryResult = from r in db.BusRoutes
-                              select BusRoute.Factory.FromMemento(r);
+                              select BusRoute.FromMemento(r);
 
             return queryResult.AsEnumerable();
         }
@@ -110,8 +110,8 @@ Commands are:
         public static void ScheduleBus(BusContext db, string busNumber, string routeName)
         {
             //pretend this is in a repository
-            var bus = Bus.Factory.FromMemento(db.Buses.Single(b => b.BusNumber == busNumber));
-            var route = BusRoute.Factory.FromMemento(db.BusRoutes.Single(r => r.Id == int.Parse(routeName)));
+            var bus = Bus.FromMemento(db.Buses.Single(b => b.BusNumber == busNumber));
+            var route = BusRoute.FromMemento(db.BusRoutes.Single(r => r.Id == int.Parse(routeName)));
 
             var schedule = new ScheduledService(new ScheduledServiceId(Guid.NewGuid()), bus.Id, route.Id);
 
