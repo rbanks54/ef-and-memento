@@ -21,7 +21,8 @@ Commands are:
 ");
 
             var options = new DbContextOptionsBuilder<BusContext>()
-                .UseInMemoryDatabase(databaseName: "Add_writes_to_database")
+                .UseSqlServer(@"Server=(LocalDB)\MSSQLLocalDB;Database=BusRoutes;Trusted_Connection=True;")
+//                .UseInMemoryDatabase(databaseName: "Add_writes_to_database")
                 .Options;
 
             using (var db = new BusContext(options))
