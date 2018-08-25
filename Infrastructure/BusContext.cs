@@ -19,10 +19,5 @@ namespace Infrastructure
         {
             builder.ApplyConfiguration(new BusesConfiguration());
         }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=(LocalDB)\MSSQLLocalDB;Database=BusRoutes;Trusted_Connection=True;");
-        }
     }
 }
