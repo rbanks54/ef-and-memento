@@ -27,6 +27,8 @@ Commands are:
 
             using (var db = new BusContext(options))
             {
+                db.Database.Migrate();
+
                 while (true)
                 {
                     Console.Write("Command | ");
