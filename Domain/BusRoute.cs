@@ -4,7 +4,7 @@ using Domain.SharedKernel;
 
 namespace Domain
 {
-    public class BusRoute : IAggregateRoot
+    public class BusRoute : IAggregateRoot, IHaveState<BusRouteMemento>
     {
         public BusRouteId Id { get; }
         public string Name { get; }
