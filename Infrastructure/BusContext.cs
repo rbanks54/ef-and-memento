@@ -10,9 +10,6 @@ namespace Infrastructure
         public DbSet<BusRouteMemento> BusRoutes { get; set; }
         public DbSet<ScheduledServiceMemento> Services { get; set; }
 
-        public BusContext()
-        { }
-
         public BusContext(DbContextOptions<BusContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)
