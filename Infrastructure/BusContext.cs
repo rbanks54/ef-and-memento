@@ -10,19 +10,11 @@ namespace Infrastructure
         public DbSet<BusRouteMemento> BusRoutes { get; set; }
         public DbSet<ScheduledServiceMemento> Services { get; set; }
 
-        public BusContext()
-        { }
-
         public BusContext(DbContextOptions<BusContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.ApplyConfiguration(new BusesConfiguration());
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=(LocalDB)\MSSQLLocalDB;Database=BusRoutes;Trusted_Connection=True;");
         }
     }
 }
