@@ -25,7 +25,7 @@ namespace Domain
             StandingCapacity = standing;
         }
 
-        public BusMemento State => new BusMemento(Id.Id, BusNumber, SeatedCapacity, StandingCapacity);
+        public BusMemento State => new BusMemento(Id.Id, BusNumber, SeatedCapacity, StandingCapacity, DateTimeOffset.Now);
 
         public static Bus FromMemento(BusMemento memento)
         {

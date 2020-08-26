@@ -15,7 +15,7 @@ namespace Domain
             Name = routeName;
         }
 
-        public BusRouteMemento State => new BusRouteMemento(Id.Id);
+        public BusRouteMemento State => new BusRouteMemento(Id.Id, Name, DateTimeOffset.Now);
 
         public static BusRoute FromMemento(BusRouteMemento memento)
         {

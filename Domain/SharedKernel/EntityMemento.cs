@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Domain.SharedKernel
 {
-    public abstract class EntityMemento
+    public interface IEntityMemento
     {
-        public DateTimeOffset LastModified { get; set; }
+        public DateTimeOffset LastModified {get; init;}
     }
 }

@@ -29,7 +29,7 @@ namespace Domain
             //RaiseEvent("RouteActivated");
         }
 
-        public ScheduledServiceMemento State => new ScheduledServiceMemento(Id.Id, BusId.Id, RouteId.Id, IsActive);
+        public ScheduledServiceMemento State => new ScheduledServiceMemento(Id.Id, BusId.Id, RouteId.Id, IsActive, DateTimeOffset.Now);
 
         public static ScheduledService FromMemento(ScheduledServiceMemento memento)
         {

@@ -9,7 +9,7 @@ namespace Domain.SharedKernel
     }
 
     public interface IHaveState<S>
-    where S : EntityMemento
+    where S : IEntityMemento
     {
         S State { get; }
     }

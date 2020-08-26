@@ -15,9 +15,9 @@ namespace Application
             Console.WriteLine("Let's just pretend this is a great UI, ok?");
             Console.WriteLine(@"
 Commands are:
-[Add Bus, Number, standing, seating]: AB xyz nnn nnn
-[Add Route: name]: AR nnn
-[Schedule Bus: number name]: SB xyz nnn
+Add Bus: AB BusNumber Standing Seating (e.g. AB Bus1 52 25)
+Add Route: AR RouteName (e.g. AR Route1)
+Schedule Bus: SB BusNumber RouteName (e.g. SB Bus1 Route1)
 ");
 
             var options = new DbContextOptionsBuilder<BusContext>()
